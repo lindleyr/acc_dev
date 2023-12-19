@@ -53,33 +53,30 @@ int main(int argc,char *argv[]){
       case 0: break;
       }
   }
-  // std::vector<float> datavec;
   std::vector<std::vector<float>> datavec(NEVENTS);
   auto start = high_resolution_clock::now();
-  GetInfoFromFile_2(file, datavec);
+  GetInfoFromFile(file, datavec);
   print_info_vec_data(datavec, 10); // you could do this just to check
-  int nlines = 8884; // nlines is different than nevents, each event can have 8+ hits
   
-  for(int event=0;event<1;event++){
-    int eventnumber = 2;
+  for(int event=0;event<1;event++){ //need to specify how many events to process here
     unsigned int size_arr = 0;
     std::cout << "size of event " << event << " is " << datavec[event].size() << endl;
-    size_arr += datavec[event].size();
-    size_arr += 4*datavec[event].size()/9;
+    size_arr = (datavec[event].size()/11)*15;
     std::cout << "size of array is " << size_arr << endl;
     auto data_arr = std::unique_ptr<double[]>(new double[size_arr]);
-    ConvertVecToArr_3(datavec, data_arr, event);
+    ConvertVecToArr(datavec, data_arr, event);
     std::cout << "conversion successful" << endl;
-    for(int i=0; i<sizeof(data_arr)/sizeof(double); i++){
+    /*for(int i=0; i<size_arr; i++){
        std::cout << "Entry " << i << " of array is " << data_arr[i] << endl;
-    }
+       }*/
     //print_info_array_data(data_arr,size_arr);
 
-    //SelectEvent(data_arr, nlines);
-    //SelectEvent(data_arr, 1);
-    HoughTransformAvg(data_arr,size_arr,event);
-    //delete(data_arr);
+//HoughTransform and HoughTransfast are the same except HoughTransform will print out an additional .txt file that can be used to create the 2D Hough Transform histogram (and HoughTransfast will run faster because it does not print out this information).
+    HoughTransform(data_arr,size_arr,event);
+    //HoughTransfast(data_arr,size_arr,event); 
   }
+  
+  //find out how much time the Hough transforms took
   auto stop = high_resolution_clock::now();
   auto duration = duration_cast<microseconds>(stop-start);
   std::cout << "Time taken is " << duration.count() << " microseconds." << endl;

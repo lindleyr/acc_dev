@@ -48,19 +48,15 @@ double crossProduct( const pvec& a, const pvec& b ) ;
 
 // 2d vector
 void GetInfoFromFile(string mergeFile, std::vector<std::vector<float>>& vec);
-void GetInfoFromFile_2(string mergeFile, std::vector<std::vector<float>>& vec);
 void print_info_vec_data(std::vector<std::vector<float>>& vec, int size);
+void HoughTransfast(std::unique_ptr<double[]>& arr, int arrsize, int eventnumber);
 void HoughTransform(std::unique_ptr<double[]>& arr, int arrsize, int eventnumber);
-void HoughTransformAvg(std::unique_ptr<double[]>& arr, int arrsize, int eventnumber);
 bool passThreshold(vector2D<std::pair<int, hit>> &image, int x, int y,  double m_step_x, double m_d0_range, int numhits);
-bool isLocalMaxima(vector2D<std::pair<int, hit>> &image, int x, int y, int m_imageSize_x, int m_imageSize_y);
 pvec LocalMaximaTest(vector2D<std::pair<int, hit>> &image, int x, int y, int m_imageSize_x, int m_imageSize_y, double m_step_x, double m_step_y, double m_d0_range, double m_qOverPt_range);
 // 1d vector
 void GetInfoFromFile(string mergeFile, std::vector<float>& vec);
 void print_info_vec_data(std::vector<float>& vec, int size);
-void ConvertVecToArr(std::vector<std::vector<float>>& vec, double *arr, int size);
-void ConvertVecToArr_2(std::vector<std::vector<float>>& vec, double *arr, int size);
-void ConvertVecToArr_3(std::vector<std::vector<float>>& vec, std::unique_ptr<double[]> &arr, int eventnumber);
+void ConvertVecToArr(std::vector<std::vector<float>>& vec, std::unique_ptr<double[]> &arr, int eventnumber);
 void print_info_array_data(std::unique_ptr<double[]>& arr, int arrsize);
 void SelectEvent(double *arr, unsigned int size);
 // old way
